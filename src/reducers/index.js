@@ -2,6 +2,7 @@ const initialState = {
   heroes: [],
   heroesLoadingStatus: "idle",
   filters: [],
+  activeButton: "Все",
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +43,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filtersLoadingStatus: "error",
+      };
+    case "FILTERS_ACTIVE_BUTTON":
+      return {
+        ...state,
+        activeButton: action.payload,
       };
     default:
       return state;

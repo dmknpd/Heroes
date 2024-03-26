@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import classNames from "classnames";
 
 import { useHttp } from "../../hooks/http.hook";
 import {
   filtersFetching,
   filtersFetched,
   filtersFetchingError,
+  filtersActiveButton,
 } from "../../actions";
 import Spinner from "../spinner/Spinner";
 // Задача для этого компонента:
@@ -20,6 +22,7 @@ const HeroesFilters = () => {
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters);
+  const activeFilter = useSelector((state) => state.activeButton);
   const filtersLoadingStatus = useSelector(
     (state) => state.filtersLoadingStatus
   );
@@ -32,6 +35,10 @@ const HeroesFilters = () => {
 
     // eslint-disable-next-line
   }, []);
+
+  const filterClick = (e) => {
+    dispatch(filtersActiveButton(e));
+  };
 
   const renderFiltersList = (arr) => {
     return arr.map((filter, i) => {
@@ -56,11 +63,17 @@ const HeroesFilters = () => {
           filterName = "Земля";
           break;
         default:
-          filterClassName = "btn btn-outline-dark active";
+          filterClassName = "btn btn-outline-dark";
           filterName = "Все";
       }
       return (
-        <button key={i} className={filterClassName}>
+        <button
+          key={i}
+          className={classNames(filterClassName, {
+            active: activeFilter === filterName,
+          })}
+          onClick={(e) => filterClick(e.target.innerText)}
+        >
           {filterName}
         </button>
       );

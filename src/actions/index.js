@@ -38,3 +38,10 @@ export const filtersFetchingError = () => {
     type: "FILTERS_FETCHING_ERROR",
   };
 };
+
+export const filtersActiveButton = (button) => {
+  return {
+    type: "FILTERS_ACTIVE_BUTTON",
+    payload: button,
+  };
+};
