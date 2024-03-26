@@ -29,7 +29,6 @@ const HeroesFilters = () => {
 
   useEffect(() => {
     dispatch(filtersFetching());
-    dispatch(filtersFetching());
     request("http://localhost:3001/filters")
       .then((data) => dispatch(filtersFetched(data)))
       .catch(() => dispatch(filtersFetchingError()));
@@ -48,29 +47,29 @@ const HeroesFilters = () => {
 
       switch (filter) {
         case "fire":
-          filterClassName = "btn btn-danger";
+          filterClassName = "btn-danger";
           filterName = "Огонь";
           break;
         case "water":
-          filterClassName = "btn btn-primary";
+          filterClassName = "btn-primary";
           filterName = "Вода";
           break;
         case "wind":
-          filterClassName = "btn btn-success";
+          filterClassName = "btn-success";
           filterName = "Ветер";
           break;
         case "earth":
-          filterClassName = "btn btn-secondary";
+          filterClassName = "btn-secondary";
           filterName = "Земля";
           break;
         default:
-          filterClassName = "btn btn-outline-dark";
+          filterClassName = "btn-outline-dark";
           filterName = "Все";
       }
       return (
         <button
           key={i}
-          className={classNames(filterClassName, {
+          className={classNames("btn", filterClassName, {
             active: activeFilter === filterName,
           })}
           onClick={(e) => filterClick(e.target.innerText)}
