@@ -2,6 +2,7 @@ const initialState = {
   heroes: [],
   heroesLoadingStatus: "idle",
   filters: [],
+  filtersLoadingStatus: "idle",
   activeButton: "Все",
 };
 
@@ -31,7 +32,7 @@ const reducer = (state = initialState, action) => {
     case "FILTERS_FETCHING":
       return {
         ...state,
-        heroesLoadingStatus: "loading",
+        filtersLoadingStatus: "loading",
       };
     case "FILTERS_FETCHED":
       return {
