@@ -18,6 +18,7 @@ import Spinner from "../spinner/Spinner";
 const HeroesList = () => {
   const heroes = useSelector((state) => state.heroes);
   const heroesLoadingStatus = useSelector((state) => state.heroesLoadingStatus);
+  const activeFilter = useSelector((state) => state.activeFilter);
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -28,7 +29,7 @@ const HeroesList = () => {
       .catch(() => dispatch(heroesFetchingError()));
 
     // eslint-disable-next-line
-  }, []);
+  }, [activeFilter]);
 
   if (heroesLoadingStatus === "loading") {
     return <Spinner />;

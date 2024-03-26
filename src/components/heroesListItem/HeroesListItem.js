@@ -2,16 +2,16 @@ const HeroesListItem = ({ name, description, element }) => {
   let elementClassName;
 
   switch (element) {
-    case "fire":
+    case "Огонь":
       elementClassName = "bg-danger bg-gradient";
       break;
-    case "water":
+    case "Вода":
       elementClassName = "bg-primary bg-gradient";
       break;
-    case "wind":
+    case "Ветер":
       elementClassName = "bg-success bg-gradient";
       break;
-    case "earth":
+    case "Земля":
       elementClassName = "bg-secondary bg-gradient";
       break;
     default:

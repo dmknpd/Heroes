@@ -22,7 +22,7 @@ const HeroesFilters = () => {
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters);
-  const activeFilter = useSelector((state) => state.activeButton);
+  const activeFilter = useSelector((state) => state.activeFilter);
   const filtersLoadingStatus = useSelector(
     (state) => state.filtersLoadingStatus
   );
@@ -36,45 +36,35 @@ const HeroesFilters = () => {
     // eslint-disable-next-line
   }, []);
 
-  const filterClick = (e) => {
-    dispatch(filtersActiveButton(e));
-  };
-
   const renderFiltersList = (arr) => {
     return arr.map((filter, i) => {
       let filterClassName;
-      let filterName;
 
       switch (filter) {
-        case "fire":
+        case "Огонь":
           filterClassName = "btn-danger";
-          filterName = "Огонь";
           break;
-        case "water":
+        case "Вода":
           filterClassName = "btn-primary";
-          filterName = "Вода";
           break;
-        case "wind":
+        case "Ветер":
           filterClassName = "btn-success";
-          filterName = "Ветер";
           break;
-        case "earth":
+        case "Земля":
           filterClassName = "btn-secondary";
-          filterName = "Земля";
           break;
         default:
           filterClassName = "btn-outline-dark";
-          filterName = "Все";
       }
       return (
         <button
           key={i}
           className={classNames("btn", filterClassName, {
-            active: activeFilter === filterName,
+            active: activeFilter === filter,
           })}
-          onClick={(e) => filterClick(e.target.innerText)}
+          onClick={() => dispatch(filtersActiveButton(filter))}
         >
-          {filterName}
+          {filter}
         </button>
       );
     });
