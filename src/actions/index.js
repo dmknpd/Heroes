@@ -18,6 +18,15 @@ export const heroesFetchingError = () => {
   };
 };
 
+// DELETE HERO
+
+export const heroDelete = (id) => {
+  return {
+    type: "HERO_DELETE",
+    payload: id,
+  };
+};
+
 // FILTERS
 
 export const filtersFetching = () => {

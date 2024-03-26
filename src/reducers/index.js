@@ -32,6 +32,19 @@ const reducer = (state = initialState, action) => {
         heroesLoadingStatus: "error",
       };
 
+    // DELETE
+    case "HERO_DELETE":
+      const newHeroList = state.heroes.filter(
+        (hero) => hero.id !== action.payload
+      );
+      return {
+        ...state,
+        heroes:
+          state.activeFilter === "Все"
+            ? newHeroList
+            : newHeroList.filter((hero) => hero.element === state.activeFilter),
+      };
+
     // FILTERS
 
     case "FILTERS_FETCHING":
@@ -55,6 +68,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeFilter: action.payload,
       };
+
     default:
       return state;
   }
