@@ -17,6 +17,14 @@ export const heroesFetchingError = () => {
     type: "HEROES_FETCHING_ERROR",
   };
 };
+// ADD HERO
+
+export const heroAdd = (hero) => {
+  return {
+    type: "HERO_ADD",
+    payload: hero,
+  };
+};
 
 // DELETE HERO
 

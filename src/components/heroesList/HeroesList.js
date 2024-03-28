@@ -39,7 +39,7 @@ const HeroesList = () => {
         .then(dispatch(heroDelete(id)))
         .catch((error) => console.log(error));
     },
-
+    // eslint-disable-next-line
     [request]
   );
 
