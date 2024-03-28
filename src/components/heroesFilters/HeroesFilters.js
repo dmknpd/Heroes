@@ -29,8 +29,8 @@ const HeroesFilters = () => {
 
   useEffect(() => {
     dispatch(filtersFetching());
-    request("http://localhost:3001/filters")
-      .then((data) => dispatch(filtersFetched(data)))
+    request("http://localhost:3001/filters/")
+      .then((data) => dispatch(filtersFetched(Object.values(data))))
       .catch(() => dispatch(filtersFetchingError()));
 
     // eslint-disable-next-line
