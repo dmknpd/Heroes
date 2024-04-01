@@ -17,6 +17,12 @@
       "name": "Морской герой",
       "description": "Как аквамен, но не из DC",
       "element": "Вода"
+    },
+    {
+      "id": "7c6dee5a-37b6-4d72-b80e-f4a663661df1",
+      "name": "Землило",
+      "description": "Землит",
+      "element": "Земля"
     }
   ],
   "filters": {

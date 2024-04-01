@@ -20,9 +20,9 @@ const HeroesAddForm = () => {
   const { request } = useHttp();
   const dispatch = useDispatch();
 
-  const filters = useSelector((state) => state.filters);
+  const filters = useSelector((state) => state.filters.filters);
   const filtersLoadingStatus = useSelector(
-    (state) => state.filtersLoadingStatus
+    (state) => state.filters.filtersLoadingStatus
   );
 
   const renderOptions = (filters, status) => {
