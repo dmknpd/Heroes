@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
 import { useHttp } from "../../hooks/http.hook";
-import { fetchFilters, filtersActiveButton } from "../../actions";
+import { fetchFilters } from "../../actions";
+import { filtersActiveButton } from "./filterSlice";
 import Spinner from "../spinner/Spinner";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
