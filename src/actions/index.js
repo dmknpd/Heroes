@@ -8,7 +8,7 @@ import {
   filtersFetching,
   filtersFetched,
   filtersFetchingError,
-} from "../components/heroesFilters/filterSlice";
+} from "../components/heroesFilters/filtersSlice";
 // HEROES
 
 export const fetchHeroes = (request) => (dispatch) => {

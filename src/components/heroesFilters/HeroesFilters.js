@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import { useHttp } from "../../hooks/http.hook";
 import { fetchFilters } from "../../actions";
-import { filtersActiveButton } from "./filterSlice";
+import { filtersActiveButton } from "./filtersSlice";
 import Spinner from "../spinner/Spinner";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
