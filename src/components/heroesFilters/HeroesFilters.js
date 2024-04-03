@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
-import { useHttp } from "../../hooks/http.hook";
-import { fetchFilters } from "../../actions";
-import { filtersActiveButton } from "./filtersSlice";
+import { filtersActiveButton, fetchFilters } from "./filtersSlice";
 import Spinner from "../spinner/Spinner";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -14,7 +12,6 @@ import Spinner from "../spinner/Spinner";
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-  const { request } = useHttp();
   const dispatch = useDispatch();
 
   const filters = useSelector((state) => state.filters.filters);
@@ -24,7 +21,7 @@ const HeroesFilters = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchFilters(request));
+    dispatch(fetchFilters());
 
     // eslint-disable-next-line
   }, []);
