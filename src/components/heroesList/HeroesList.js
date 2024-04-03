@@ -34,7 +34,6 @@ const HeroesList = () => {
   const heroesLoadingStatus = useSelector(
     (state) => state.heroes.heroesLoadingStatus
   );
-  const activeFilter = useSelector((state) => state.filters.activeFilter);
   const dispatch = useDispatch();
   const { request } = useHttp();
 
