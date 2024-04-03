@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
-import { filtersActiveButton, fetchFilters } from "./filtersSlice";
+import { filtersActiveButton, fetchFilters, selectAll } from "./filtersSlice";
 import Spinner from "../spinner/Spinner";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -14,7 +14,7 @@ import Spinner from "../spinner/Spinner";
 const HeroesFilters = () => {
   const dispatch = useDispatch();
 
-  const filters = useSelector((state) => state.filters.filters);
+  const filters = useSelector(selectAll);
   const activeFilter = useSelector((state) => state.filters.activeFilter);
   const filtersLoadingStatus = useSelector(
     (state) => state.filters.filtersLoadingStatus

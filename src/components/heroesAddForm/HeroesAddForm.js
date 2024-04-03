@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useHttp } from "../../hooks/http.hook";
 import { useDispatch, useSelector } from "react-redux";
 import { heroAdd } from "../heroesList/heroesSlice";
+import { selectAll } from "../heroesFilters/filtersSlice";
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -20,7 +21,7 @@ const HeroesAddForm = () => {
   const { request } = useHttp();
   const dispatch = useDispatch();
 
-  const filters = useSelector((state) => state.filters.filters);
+  const filters = useSelector(selectAll);
   const filtersLoadingStatus = useSelector(
     (state) => state.filters.filtersLoadingStatus
   );
