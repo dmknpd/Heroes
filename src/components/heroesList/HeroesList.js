@@ -1,10 +1,9 @@
-import { useHttp } from "../../hooks/http.hook";
-import { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
 
-import { heroDelete, fetchHeroes, filteredHeroesSelector } from "./heroesSlice";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
+import { useGetHeroesQuery, useDeleteHeroMutation } from "../../api/apiSlice";
 
 // Задача для этого компонента:
 // При клике на "крестик" идет удаление персонажа из общего состояния
@@ -12,32 +11,43 @@ import Spinner from "../spinner/Spinner";
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-  const heroes = useSelector(filteredHeroesSelector);
-  const heroesLoadingStatus = useSelector(
-    (state) => state.heroes.heroesLoadingStatus
-  );
-  const dispatch = useDispatch();
-  const { request } = useHttp();
+  const {
+    data: heroes = [],
+    isFetching,
+    isLoading,
+    isError,
+  } = useGetHeroesQuery();
 
-  useEffect(() => {
-    dispatch(fetchHeroes());
-    // eslint-disable-next-line
-  }, []);
+  const [deleteHero] = useDeleteHeroMutation();
+
+  const activeFilter = useSelector((state) => state.filters.activeFilter);
+
+  const filteredHeroes = useMemo(() => {
+    const filteredHeroes = heroes.slice();
+
+    if (activeFilter === "Все") {
+      return filteredHeroes;
+    } else {
+      return filteredHeroes.filter((hero) => hero.element === activeFilter);
+    }
+  }, [heroes, activeFilter]);
+
+  // const heroes = useSelector(filteredHeroesSelector);
+  // const heroesLoadingStatus = useSelector(
+  //   (state) => state.heroes.heroesLoadingStatus
+  // );
 
   const onDelete = useCallback(
     (id) => {
-      request(`http://localhost:3001/heroes/${id}`, "DELETE")
-        .then((data) => console.log(data, "deleted"))
-        .then(dispatch(heroDelete(id)))
-        .catch((error) => console.log(error));
+      deleteHero(id);
     },
     // eslint-disable-next-line
-    [request]
+    []
   );
 
-  if (heroesLoadingStatus === "loading") {
+  if (isLoading || isFetching) {
     return <Spinner />;
-  } else if (heroesLoadingStatus === "error") {
+  } else if (isError) {
     return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
   }
 
@@ -51,7 +61,7 @@ const HeroesList = () => {
     });
   };
 
-  const elements = renderHeroesList(heroes);
+  const elements = renderHeroesList(filteredHeroes);
   return <ul>{elements}</ul>;
 };
 

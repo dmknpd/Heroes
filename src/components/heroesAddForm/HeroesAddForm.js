@@ -2,10 +2,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
-import { useHttp } from "../../hooks/http.hook";
-import { useDispatch, useSelector } from "react-redux";
-import { heroAdd } from "../heroesList/heroesSlice";
+import { useSelector } from "react-redux";
 import { selectAll } from "../heroesFilters/filtersSlice";
+import { useCreateHeroMutation } from "../../api/apiSlice";
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -18,18 +17,14 @@ import { selectAll } from "../heroesFilters/filtersSlice";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-  const { request } = useHttp();
-  const dispatch = useDispatch();
+  const [createHero, { isLoading, isError }] = useCreateHeroMutation();
 
   const filters = useSelector(selectAll);
-  const filtersLoadingStatus = useSelector(
-    (state) => state.filters.filtersLoadingStatus
-  );
 
-  const renderOptions = (filters, status) => {
-    if (status === "loading") {
+  const renderOptions = (filters) => {
+    if (isLoading) {
       return <option>Загрузка элементов</option>;
-    } else if (status === "error") {
+    } else if (isError) {
       return <option>Ошибка загрузки</option>;
     }
 
@@ -65,12 +60,8 @@ const HeroesAddForm = () => {
       })}
       onSubmit={(values, { resetForm }) => {
         const newHero = { id: uuidv4(), ...values };
-        request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
-          .then(() => {
-            resetForm();
-            dispatch(heroAdd(newHero));
-          })
-          .catch((error) => console.log(error));
+        createHero(newHero).unwrap();
+        resetForm();
       }}
     >
       <Form className="border p-4 shadow-lg rounded">
@@ -122,7 +113,7 @@ const HeroesAddForm = () => {
             as="select"
           >
             <option value="">Выберите элемент...</option>
-            {renderOptions(filters, filtersLoadingStatus)}
+            {renderOptions(filters)}
           </Field>
           <ErrorMessage
             name="element"

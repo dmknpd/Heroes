@@ -20,7 +20,7 @@ const HeroesListItem = ({ name, description, element, onDel }) => {
 
   return (
     <li
-      className={`fade-in card flex-row mb-4 shadow-lg text-white ${elementClassName}`}
+      className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}
     >
       <img
         src="https://www.business2community.com/wp-content/uploads/2015/03/Identity-Question-Mark5.jpg5.jpg"
